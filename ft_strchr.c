@@ -13,15 +13,14 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*res;
-	int		i;
-	size_t	len;
 
-	len = ft_strlen(s);
+	int		i;
+
 	i = -1;
-	while (c == '\0' && s[++i])
-		if (s[i + 1] == c)
-			return ("\0");
-	res = ft_memchr(s, c, len);
-	return (res);
+	while (s[++i])
+		if (s[i] == c)
+			return (char *) s+i;
+	if (!c)
+		return (char *) s+i;
+	return (0);
 }

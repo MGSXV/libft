@@ -10,16 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	*ft_memmove(void *dst, const void *src, unsigned long len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned long	i;
-	char			tmp[len];
+	unsigned char	*dst2;
+	unsigned char	*src2;
 
-	i = -1;
-	while (++i < len)
-		tmp[i] = ((char *) src)[i];
-	i = -1;
-	while (++i < len)
-		((char *) dst)[i] = tmp[i];
-	return (dst);
+	dst2 = (unsigned char *) dst;
+	src2 = (unsigned char *) src;
+	if (!dst && !src)
+		return (NULL);
+	if (dst2 > src2)
+		while(len--)
+			dst2[len] = src2[len];
+	else if (dst2 < src2)
+		ft_memcpy(dst, src, len);
+	return (dst);	
 }

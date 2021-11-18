@@ -13,18 +13,22 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	str_len;
-	char	*sub_str;
+	size_t	s_len;
+	char	*str;
 
-	i = start;
-	str_len = ft_strlen(s);
-	if (i + len > str_len)
-		len = str_len - i;
-	sub_str = (char *) malloc(len * sizeof(char) + 1);
-	if (!sub_str)
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+	{
+		str = (char *) malloc(1);
+		if (!str)
+			return (NULL);
+		str[0] = '\0';
+		return (str);
+	}
+	str = (char *) malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	ft_memcpy(sub_str, s + i, len);
-	sub_str[len] = '\0';
-	return (sub_str);
+	ft_memcpy(str, s + start, len);
+	str[len] = '\0';
+	return (str);
 }

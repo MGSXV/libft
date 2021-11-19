@@ -9,6 +9,7 @@
 /*   Updated: 2021/11/12 01:53:03 by sel-kham         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {

@@ -11,70 +11,33 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static unsigned short	is_in_start(char const *target, char const *set)
+static int	ft_reverse_strchr(const char *s, int c)
 {
-	unsigned short	is_in_start;
-	size_t			i;
+	int		i;
 
 	i = -1;
-	is_in_start = 1;
-	if (ft_strlen(set) > ft_strlen(target))
-		return (0);
-	while (++i < ft_strlen(set))
-		if (target[i] != set[i])
-			return (0);
-	return (is_in_start);
-}
-
-static unsigned short	is_in_end(char const *target, char const *set)
-{
-	unsigned short	is_in_end;
-	size_t			t_len;
-	size_t			s_len;
-
-	is_in_end = 1;
-	t_len = ft_strlen(target);
-	s_len = ft_strlen(set);
-	if (s_len > t_len)
-		return (0);
-	while (s_len)
-		if (target[--t_len] != set[--s_len])
-			return (0);
-	return (is_in_end);
-}
-
-static size_t	result_len(char const *s1, char const *s2)
-{
-	if (is_in_start(s1, s2) && is_in_end(s1, s2))
-		return (ft_strlen(s1) - ft_strlen(s2) * 2);
-	else if (!is_in_start(s1, s2) && !is_in_end(s1, s2))
-		return (ft_strlen(s1));
-	return (ft_strlen(s1) - ft_strlen(s2));
+	while (s[++i])
+		if (s[i] == c)
+			return (1);
+	if (!c)
+		return (1);
+	return (0);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*result;
-	size_t	i;
-	size_t	res_len;
+	char		*result;
+	size_t		i;
+	size_t		j;
+	size_t		limit;
 
 	i = -1;
-	res_len = result_len(s1, set);
-	result = (char *) malloc(res_len * sizeof(char));
-	if (!result)
-		return (0);
-	if (is_in_start(s1, set) && is_in_end(s1, set))
-		while (++i < res_len)
-			result[i] = s1[i + ft_strlen(set)];
-	else if (!is_in_start(s1, set))
-		while (++i < res_len)
-			result[i] = s1[i];
-	else if (!is_in_end(s1, set))
-		while (++i < res_len)
-			result[i] = s1[i + ft_strlen(set)];
-	else
-		while (++i < res_len)
-			result[i] = s1[i];
-	result[res_len] = '\0';
+	j = ft_strlen(s1);
+	limit = 0;
+	while (ft_strchr(set, s1[++i]))
+		;
+	while (ft_reverse_strchr(set, s1[--j]))
+		limit++;
+	result = ft_substr(s1, i, ft_strlen(s1) - i - limit);
 	return (result);
 }

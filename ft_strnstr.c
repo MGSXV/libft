@@ -16,21 +16,26 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	size_t	i;
 	size_t	j;
 	char	*res;
+	size_t	h_len;
+	size_t	n_len;
 
+	h_len = ft_strlen(haystack);
+	n_len = ft_strlen(needle);
 	res = (char *) haystack;
-	if (ft_strlen(needle) == 0)
+	if (!n_len)
 		return (res++);
-	if (ft_strlen(haystack) < ft_strlen(needle) || ft_strlen(haystack) == 0)
+	if (h_len < n_len)
 		return (NULL);
-	i = 0;
-	while (res[i] && i < len)
+	i = -1;
+	while (res[++i] && i < len)
 	{
 		j = 0;
-		while (needle[j] == res[i + j])
+		while (needle[j] == res[i + j] && i + j < len)
+		{
 			j++;
-		if (needle[j] == '\0')
-			return (res + i);
-		i++;
+			if (needle[j] == '\0')
+				return (res + i);
+		}
 	}
 	return (NULL);
 }

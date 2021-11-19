@@ -11,9 +11,9 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static int	number_length(int n)
+static int	number_length(long int n)
 {
-	int	i;
+	long int	i;
 
 	i = 1;
 	if (n < 0)
@@ -29,7 +29,7 @@ static int	number_length(int n)
 	return (i);
 }
 
-static void	assigne_value(char *str, int *index, int number)
+static void	assigne_value(char *str, int *index, long int number)
 {
 	if (number > 9)
 	{
@@ -45,24 +45,24 @@ static void	assigne_value(char *str, int *index, int number)
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		len;
-	int		i;
+	char		*str;
+	int			len;
+	int			i;
+	long int	ln;
 
-	if (n == -2147483648)
-		return ("-2147483648");
-	len = number_length(n);
+	ln = (long int) n;
+	len = number_length(ln);
 	i = 0;
 	str = (char *) malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
-	str[len + 1] = '\0';
 	if (n < 0)
 	{
 		i++;
-		n = -n;
+		ln = -ln;
 		str[0] = '-';
 	}
-	assigne_value(str, &i, n);
+	assigne_value(str, &i, ln);
+	str[len] = '\0';
 	return (str);
 }

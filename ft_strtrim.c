@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static int	ft_reverse_strchr(const char *s, int c)
-{
-	int		i;
-
-	i = -1;
-	while (s[++i])
-		if (s[i] == c)
-			return (1);
-	if (!c)
-		return (1);
-	return (0);
-}
-
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char		*result;
@@ -32,12 +19,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t		limit;
 
 	i = -1;
-	j = ft_strlen(s1);
 	limit = 0;
+	if (!s1 || !set)
+		return (NULL);
+	j = ft_strlen(s1);
 	while (ft_strchr(set, s1[++i]))
 		;
-	while (ft_reverse_strchr(set, s1[--j]))
-		limit++;
-	result = ft_substr(s1, i, ft_strlen(s1) - i - limit);
+	while (ft_strchr(set, s1[--j]))
+		;
+	result = ft_substr(s1, i, j - i + 1);
 	return (result);
 }

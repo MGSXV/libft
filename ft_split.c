@@ -42,6 +42,17 @@ static void	optimize_code(char const *s, char c, size_t *i, size_t *row_len)
 	}
 }
 
+static char	**free_all(char **t)
+{
+	int	i;
+
+	i = -1;
+	while (t[++i])
+		free (t[i]);
+	free (t);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**res;
@@ -50,20 +61,21 @@ char	**ft_split(char const *s, char c)
 	size_t	rows;
 	size_t	row_len;
 
+	if (!s)
+		return (NULL);
 	rows = rows_count(s, c);
-	res = (char **) malloc(sizeof(char) * (rows + 1));
+	res = (char **) malloc(sizeof(char *) * (rows + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
 	j = 0;
-	while (s[i])
+	i = 0;
+	while (s[i] && j < rows)
 	{
 		optimize_code(s, c, &i, &row_len);
-		res[j] = (char *) malloc(sizeof(char) * (row_len + 1));
-		if (!res[j])
-			return (NULL);
 		res[j++] = ft_substr(s, i - row_len, row_len);
+		if (!res[j - 1])
+			return (free_all(res));
 	}
-	res[rows] = NULL;
+	res[j] = NULL;
 	return (res);
 }

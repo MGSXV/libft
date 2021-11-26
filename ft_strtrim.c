@@ -16,10 +16,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char		*result;
 	size_t		i;
 	size_t		j;
-	size_t		limit;
 
 	i = -1;
-	limit = 0;
 	if (!s1 || !set)
 		return (NULL);
 	j = ft_strlen(s1);

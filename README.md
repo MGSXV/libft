@@ -8,6 +8,3 @@ I will keep working on expanding this library throught the years.
 ## Technology
   * C
   * Makefile
-
-## Launch
-Will work on this one later

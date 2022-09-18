@@ -18,18 +18,18 @@ OBJ_B := $(SRC_B:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ_M) libft.h
-	ar -rcs ${NAME} ${OBJ_M}
+	@ar -rcs ${NAME} ${OBJ_M}
 
 bonus: $(OBJ_B) $(OBJ_M)
-	ar -rcs $(NAME) $(OBJ_M) $(OBJ_B)
+	@ar -rcs $(NAME) $(OBJ_M) $(OBJ_B)
 
 %.o: %.c
-	$(CC) $(FLAGS) -c $^
+	@$(CC) $(FLAGS) -c $^
 
 clean:
-	rm -rf $(OBJ_M) $(OBJ_B)
+	@rm -rf $(OBJ_M) $(OBJ_B)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
